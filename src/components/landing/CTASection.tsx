@@ -22,6 +22,7 @@ const temaLabels: Record<string, string> = {
   "fatiga": "Fatiga",
   "sugerencias": "Sugerencias",
   "denuncias": "Denuncias",
+  "dudas": "Dudas",
   "otro": "Otro",
 };
 
@@ -139,6 +140,7 @@ export function CTASection() {
                   <SelectItem value="fatiga">Fatiga</SelectItem>
                   <SelectItem value="sugerencias">Sugerencias</SelectItem>
                   <SelectItem value="denuncias">Denuncias</SelectItem>
+                  <SelectItem value="dudas">Dudas</SelectItem>
                   <SelectItem value="otro">Otro</SelectItem>
                 </SelectContent>
               </Select>

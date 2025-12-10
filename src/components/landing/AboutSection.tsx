@@ -36,7 +36,7 @@ export function AboutSection() {
               la representación sindical: honestidad, profesionalismo y cercanía con los trabajadores.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Como miembros de la Asociación Sindical de Trabajadores de Junta (ASTJ), entendemos las 
+              Como miembros de la Asociación Sindical de Trabajadores de Jetsmart (ASTJ), entendemos las 
               necesidades reales de nuestros compañeros y trabajamos incansablemente para garantizar 
               que cada voz sea escuchada.
             </p>

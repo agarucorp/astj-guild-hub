@@ -163,7 +163,7 @@ export function CTASection() {
             <div className="flex flex-col items-center pt-4 space-y-4">
               {submitStatus === "success" && (
                 <div className="w-full p-4 bg-emerald-600/20 border border-emerald-500/60 rounded-lg text-emerald-300 text-center font-medium">
-                  ¡Gracias por tu mensaje! Te contactaremos pronto.
+                  ¡Gracias por tu mensaje!
                 </div>
               )}
               {submitStatus === "error" && (

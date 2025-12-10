@@ -1,10 +1,13 @@
 import heroBg from "@/assets/hero-bg.jpg";
 import { Button } from "@/components/ui/button";
-import { ChevronDown } from "lucide-react";
 
 export function HeroSection() {
   const scrollToMission = () => {
     document.getElementById("mission")?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToInquietudes = () => {
+    document.getElementById("inquietudes")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -21,13 +24,6 @@ export function HeroSection() {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Badge */}
-          <div className="animate-fade-up mb-8">
-            <span className="inline-block px-4 py-2 rounded-full border border-accent/40 text-accent text-sm font-medium tracking-widest uppercase">
-              Miembro de ASTJ
-            </span>
-          </div>
-          
           {/* Main Title */}
           <h1 className="animate-fade-up-delay-1 font-display text-5xl md:text-7xl lg:text-8xl font-bold text-primary-foreground mb-6 tracking-tight">
             Lista Blanca
@@ -49,21 +45,10 @@ export function HeroSection() {
             <Button variant="hero" size="xl" onClick={scrollToMission}>
               Conocer nuestra misión
             </Button>
-            <Button variant="hero-outline" size="xl">
-              Contactar
+            <Button variant="hero-outline" size="xl" onClick={scrollToInquietudes}>
+              Inquietudes
             </Button>
           </div>
-        </div>
-        
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <button 
-            onClick={scrollToMission}
-            className="text-primary-foreground/60 hover:text-accent transition-colors"
-            aria-label="Scroll to content"
-          >
-            <ChevronDown size={32} />
-          </button>
         </div>
       </div>
     </section>

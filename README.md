@@ -71,3 +71,42 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Configuración de EmailJS
+
+Este proyecto utiliza EmailJS para el envío de formularios. Para configurarlo:
+
+1. **Crea una cuenta en EmailJS**: Visita https://www.emailjs.com/ y crea una cuenta gratuita.
+
+2. **Configura un servicio de email**:
+   - Ve a "Email Services" en el dashboard
+   - Agrega un nuevo servicio (Gmail, Outlook, etc.)
+   - Sigue las instrucciones para conectar tu cuenta de email
+   - Anota el **Service ID**
+
+3. **Crea un template de email**:
+   - Ve a "Email Templates" y crea un nuevo template
+   - Usa estas variables en el template:
+     - `{{tema}}` - Tema de consulta seleccionado
+     - `{{mensaje}}` - Mensaje del usuario
+     - `{{fecha}}` - Fecha y hora del envío
+   - Configura el asunto y cuerpo del email
+   - Anota el **Template ID**
+
+4. **Obtén tu Public Key**:
+   - Ve a "Account" > "General" > "API Keys"
+   - Copia tu **Public Key**
+
+5. **Configura las variables de entorno**:
+   - Crea un archivo `.env` en la raíz del proyecto
+   - Agrega las siguientes variables:
+   ```
+   VITE_EMAILJS_PUBLIC_KEY=tu_public_key_aqui
+   VITE_EMAILJS_SERVICE_ID=tu_service_id_aqui
+   VITE_EMAILJS_TEMPLATE_ID=tu_template_id_aqui
+   ```
+   - Reemplaza los valores con tus credenciales reales
+
+6. **Reinicia el servidor de desarrollo** después de crear el archivo `.env`
+
+El formulario de contacto ahora enviará emails automáticamente cuando los usuarios lo completen.

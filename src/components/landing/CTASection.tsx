@@ -1,5 +1,5 @@
 import { useState } from "react";
-import emailjs from "@emailjs/browser";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -10,13 +10,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { supabase } from "@/lib/supabase";
 
-// Configuración de EmailJS - Reemplaza estos valores con tus credenciales
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "";
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "";
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "";
-
-// Mapeo de valores del select a nombres legibles para el subject
+// Mapeo de valores del select a nombres legibles
 const temaLabels: Record<string, string> = {
   "roles": "Roles",
   "fatiga": "Fatiga",
@@ -40,60 +36,27 @@ export function CTASection() {
     setSubmitStatus("idle");
 
     try {
-      // Verificar que las credenciales estén configuradas
-      if (!EMAILJS_PUBLIC_KEY || !EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID) {
-        throw new Error("Las credenciales de EmailJS no están configuradas. Por favor, configura las variables de entorno.");
-      }
-
-      // Inicializar EmailJS con la clave pública
-      emailjs.init(EMAILJS_PUBLIC_KEY);
-
-      // Obtener el nombre legible del tema para el subject
       const temaLabel = temaLabels[formData.tema] || formData.tema;
 
-      // Preparar los parámetros del template - solo tema y mensaje como solicitado
-      const templateParams = {
-        tema: temaLabel, // Nombre legible del tema (ej: "Derechos laborales")
-        mensaje: formData.mensaje, // Mensaje completo del usuario
-        // Parámetros adicionales opcionales para el template
-        fecha: new Date().toLocaleString("es-ES"),
-        subject: `Nuevo reporte de ${temaLabel}`,
-      };
+      const { error } = await supabase
+        .from("inquietudes")
+        .insert([
+          {
+            tema: temaLabel,
+            mensaje: formData.mensaje,
+          },
+        ]);
 
-      // Log para debugging (puedes removerlo en producción)
-      console.log("Enviando formulario con parámetros:", {
-        tema: templateParams.tema,
-        mensaje: templateParams.mensaje.substring(0, 50) + "...", // Solo primeros 50 caracteres para no saturar el log
-      });
+      if (error) throw error;
 
-      // Enviar el email a EmailJS
-      const response = await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams
-      );
-
-      console.log("Email enviado exitosamente:", response);
-
-      // Éxito
       setSubmitStatus("success");
-      setFormData({
-        tema: "",
-        mensaje: "",
-      });
+      setFormData({ tema: "", mensaje: "" });
       
-      // Resetear el estado después de 5 segundos
-      setTimeout(() => {
-        setSubmitStatus("idle");
-      }, 5000);
+      setTimeout(() => setSubmitStatus("idle"), 5000);
     } catch (error) {
-      console.error("Error al enviar el formulario:", error);
+      console.error("Error al guardar la inquietud:", error);
       setSubmitStatus("error");
-      
-      // Resetear el estado de error después de 5 segundos
-      setTimeout(() => {
-        setSubmitStatus("idle");
-      }, 5000);
+      setTimeout(() => setSubmitStatus("idle"), 5000);
     } finally {
       setIsLoading(false);
     }
@@ -118,7 +81,8 @@ export function CTASection() {
             </h2>
             <p className="text-xl text-primary-foreground/80 leading-relaxed">
               Tu opinión es fundamental para nosotros. Completa el formulario a continuación y comparte con nosotros tus dudas, sugerencias o preocupaciones. 
-              <span className="font-semibold text-accent"> Toda la información que nos proporciones es 100% confidencial</span> y será tratada con el máximo respeto y discreción.
+              <span className="font-semibold text-accent"> Todas las inquietudes son 100% anónimas</span> y podrás ver las de todos los agremiados. 
+              La idea nuestra es presentarlas a la empresa de forma mensual para abordar los problemas y trabajar en conjunto en la mejora de nuestras condiciones laborales.
             </p>
           </div>
           
@@ -165,7 +129,7 @@ export function CTASection() {
             <div className="flex flex-col items-center pt-4 space-y-4">
               {submitStatus === "success" && (
                 <div className="w-full p-4 bg-emerald-600/20 border border-emerald-500/60 rounded-lg text-emerald-300 text-center font-medium">
-                  ¡Gracias por tu mensaje!
+                  <p>¡Gracias por tu mensaje! Tu inquietud ha sido registrada.</p>
                 </div>
               )}
               {submitStatus === "error" && (
@@ -184,6 +148,18 @@ export function CTASection() {
               </Button>
             </div>
           </form>
+          
+          <div className="mt-6 flex justify-center">
+            <Link to="/inquietudes">
+              <Button
+                type="button"
+                variant="hero-outline"
+                size="xl"
+              >
+                Ver inquietudes
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

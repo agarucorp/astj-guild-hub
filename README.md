@@ -110,3 +110,36 @@ Este proyecto utiliza EmailJS para el envío de formularios. Para configurarlo:
 6. **Reinicia el servidor de desarrollo** después de crear el archivo `.env`
 
 El formulario de contacto ahora enviará emails automáticamente cuando los usuarios lo completen.
+
+## Configuración de Supabase
+
+Este proyecto utiliza Supabase para almacenar las inquietudes de los usuarios. Para configurarlo:
+
+1. **Crea una cuenta en Supabase**: Visita https://www.supabase.com y crea una cuenta gratuita.
+
+2. **Crea un nuevo proyecto**:
+   - Nombre: `lista-blanca`
+   - Elige una región cercana
+   - Plan: Free
+
+3. **Crea la tabla de inquietudes**:
+   - Ve a SQL Editor en Supabase
+   - Ejecuta el SQL proporcionado en `SUPABASE_SETUP.md`
+
+4. **Obtén tus credenciales**:
+   - Ve a Settings → API
+   - Copia el Project URL y el anon public key
+
+5. **Configura las variables de entorno**:
+   - Crea un archivo `.env` en la raíz del proyecto
+   - Agrega:
+   ```
+   VITE_SUPABASE_URL=tu_project_url
+   VITE_SUPABASE_ANON_KEY=tu_anon_key
+   ```
+
+6. **Reinicia el servidor de desarrollo**
+
+Para más detalles, consulta el archivo `SUPABASE_SETUP.md`.
+
+Las inquietudes se guardan en Supabase y se pueden ver en la página `/inquietudes` con filtros por tema.

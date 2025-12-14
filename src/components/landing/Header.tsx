@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { href: "#mission", label: "Misión" },
@@ -9,6 +11,8 @@ const navLinks = [
 ];
 
 export function Header() {
+  const location = useLocation();
+  const isInquietudesPage = location.pathname === "/inquietudes";
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -38,27 +42,35 @@ export function Header() {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <span className="font-display text-xl md:text-2xl font-bold text-primary-foreground">
               Lista Blanca
             </span>
             <span className="hidden sm:inline-block text-accent text-sm font-medium">
               ASTJ
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => scrollToSection(link.href)}
-                className="text-primary-foreground/80 hover:text-accent transition-colors font-medium"
-              >
-                {link.label}
-              </button>
-            ))}
-          </nav>
+          {isInquietudesPage ? (
+            <Link to="/">
+              <Button variant="hero-outline" size="default">
+                Volver al inicio
+              </Button>
+            </Link>
+          ) : (
+            <nav className="hidden md:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <button
+                  key={link.href}
+                  onClick={() => scrollToSection(link.href)}
+                  className="text-primary-foreground/80 hover:text-accent transition-colors font-medium"
+                >
+                  {link.label}
+                </button>
+              ))}
+            </nav>
+          )}
 
           {/* Mobile Menu Button */}
           <button
@@ -74,15 +86,23 @@ export function Header() {
         {isMobileMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 border-t border-primary-foreground/10 pt-4">
             <div className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  className="text-primary-foreground/80 hover:text-accent transition-colors font-medium text-left"
-                >
-                  {link.label}
-                </button>
-              ))}
+              {isInquietudesPage ? (
+                <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button variant="hero-outline" size="default" className="w-full">
+                    Volver al inicio
+                  </Button>
+                </Link>
+              ) : (
+                navLinks.map((link) => (
+                  <button
+                    key={link.href}
+                    onClick={() => scrollToSection(link.href)}
+                    className="text-primary-foreground/80 hover:text-accent transition-colors font-medium text-left"
+                  >
+                    {link.label}
+                  </button>
+                ))
+              )}
             </div>
           </nav>
         )}

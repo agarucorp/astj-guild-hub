@@ -1,0 +1,23 @@
+# Cursor Rules para Lista Blanca
+
+## Supabase Configuration
+
+Si necesitas trabajar con Supabase, usa estas credenciales desde las variables de entorno:
+- VITE_SUPABASE_URL
+- VITE_SUPABASE_ANON_KEY (para el frontend)
+- SUPABASE_SERVICE_ROLE_KEY (solo para scripts/backend, nunca en el frontend)
+
+## Estructura de la Base de Datos
+
+### Tabla: inquietudes
+- id: UUID (primary key, auto-generado)
+- tema: TEXT (Roles, Fatiga, Sugerencias, Denuncias, Dudas, Otro)
+- mensaje: TEXT
+- created_at: TIMESTAMP (auto-generado)
+
+## Comandos Útiles
+
+Para ejecutar SQL en Supabase:
+1. Usa el SQL Editor en el dashboard de Supabase
+2. O usa Supabase CLI: `npx supabase db execute --sql "TU_SQL_AQUI"`
+

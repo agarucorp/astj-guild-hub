@@ -53,7 +53,7 @@ export function Header() {
 
           {/* Desktop Navigation */}
           {isInquietudesPage ? (
-            <Link to="/">
+            <Link to="/" className="hidden md:block">
               <Button variant="hero-outline" size="default">
                 Volver al inicio
               </Button>

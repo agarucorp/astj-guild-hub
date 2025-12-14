@@ -84,7 +84,10 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <nav className="md:hidden mt-4 pb-4 border-t border-primary-foreground/10 pt-4">
+          <nav className={cn(
+            "md:hidden mt-4 pb-4 border-t border-primary-foreground/10 pt-4",
+            !isScrolled && "bg-navy-deep/95 backdrop-blur-md rounded-lg"
+          )}>
             <div className="flex flex-col gap-4">
               {isInquietudesPage ? (
                 <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>

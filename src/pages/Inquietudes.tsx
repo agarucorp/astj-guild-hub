@@ -200,7 +200,7 @@ const Inquietudes = () => {
                   {paginatedInquietudes.length === 0 ? (
                     <Card className="bg-card/50 backdrop-blur-sm">
                       <CardContent className="pt-6">
-                        <p className="text-center text-primary-foreground/60">
+                        <p className="text-center text-navy-medium/70">
                           No hay inquietudes para mostrar.
                         </p>
                       </CardContent>
@@ -213,16 +213,16 @@ const Inquietudes = () => {
                       >
                         <CardHeader>
                           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                            <CardTitle className="text-primary-foreground">
+                            <CardTitle className="text-navy-deep">
                               {inquietud.tema}
                             </CardTitle>
-                            <span className="text-sm text-primary-foreground/60">
+                            <span className="text-sm text-navy-medium/70">
                               {formatDate(inquietud.created_at)}
                             </span>
                           </div>
                         </CardHeader>
                         <CardContent>
-                          <p className="text-primary-foreground/80 leading-relaxed whitespace-pre-wrap">
+                          <p className="text-navy-deep leading-relaxed whitespace-pre-wrap">
                             {inquietud.mensaje}
                           </p>
                         </CardContent>

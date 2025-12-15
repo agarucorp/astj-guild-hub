@@ -41,6 +41,9 @@ const Inquietudes = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Scroll al inicio cuando se carga la página
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
     fetchInquietudes();
 
     // Suscripción en tiempo real para nuevas inquietudes
